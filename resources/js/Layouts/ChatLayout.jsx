@@ -19,20 +19,20 @@ const ChatLayout = ({children}) => {
     useEffect(() => {
         setSortedConversations(
             localConversations.sort((a, b) => {
-                if (a.blocked_at && b.blocked_at){
+                if (a.blocked_at && b.blocked_at) {
                     return a.blocked_at > b.blocked_at ? 1 : -1;
-                } else if (a.blocked_at){
+                } else if (a.blocked_at) {
                     return 1;
-                } else if (b.blocked_at){
+                } else if (b.blocked_at) {
                     return -1;
                 }
-                if (a.last_message_date && b.last_message_date){
+                if (a.last_message_date && b.last_message_date) {
                     return b.last_message_date.localeCompare(
                         a.last_message_date
                     )
-                } else if (a.last_message_date){
+                } else if (a.last_message_date) {
                     return -1;
-                } else if (b.last_message_date){
+                } else if (b.last_message_date) {
                     return 1;
                 } else {
                     return 0;
@@ -40,10 +40,6 @@ const ChatLayout = ({children}) => {
             })
         )
     }, [localConversations]);
-//1.51
-    //  php artisan serve
-    // npm run dev
-    // php artisan reverb:start --debug
     useEffect(() => {
         setLocalConversations(conversations)
     }, [conversations]);
@@ -79,9 +75,26 @@ const ChatLayout = ({children}) => {
     }, []);
     return (
         <>
-            ChatLayout
-            <div>{children}</div>
+            <div className="flex-1 w-full flex overflow-hidden">
+                <div className={`transition-all w-full sm:w-[220px] md:w-[300px] bg-slate-800 flex flex-col overflow-hidden
+                ${selectedConversation ? "-ml-[100%] sm:ml-0" : ""}`}>
+                    <div className="flex items-center justify-between py-2 px-3 text-xl font-medium">
+                        My Conversations
+                    </div>
+                </div>
+                <div className="flex-1 flex flex-col overflow-hidden">
+                    {children}
+                </div>
+            </div>
         </>
     )
 }
 export default ChatLayout;
+/*
+2.11
+php artisan serve
+
+npm run dev
+
+php artisan reverb:start --debug
+ */
