@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'conversations' => Auth::id() ? Conversation::getConversatiensForSidebar(Auth::user()) : [] ,
+            'conversations' => Auth::id() ? Conversation::getConversationsForSidebar(Auth::user()) : [] ,
         ];
     }
 }

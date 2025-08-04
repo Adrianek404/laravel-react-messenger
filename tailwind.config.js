@@ -23,13 +23,4 @@ export default {
 
     plugins: [forms, daisyui],
 
-    daisyui: {
-        themes: ["light", "dark"],
-        darkTheme: "dark",
-        base: true,
-        styled: true,
-        utils: true,
-        logs: true,
-        prefix: "",
-    },
 };
