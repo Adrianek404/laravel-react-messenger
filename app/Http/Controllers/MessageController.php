@@ -18,7 +18,7 @@ class MessageController extends Controller
 {
     public function byUser(User $user)
     {
-        $messages = Message::where('sender_id1', auth()->id())
+        $messages = Message::where('sender_id', auth()->id())
             ->where('receiver_id', $user->id)
             ->orWhere('sender_id', $user->id)
             ->where('receiver_id', auth()->id())
@@ -35,7 +35,7 @@ class MessageController extends Controller
     {
         $messages = Message::where('group_id', $group->id)
             ->latest()
-            ->paginate(50);
+            ->paginate(10);
 
         return inertia('Home', [
             'selectedConversation' => $group->toConversationArray(),
@@ -99,7 +99,7 @@ class MessageController extends Controller
             Conversation::updateConversationWithMessage($receiverId, auth()->id(), $message);
         }
         if ($groupId){
-            Conversation::updateGroupWithMessage($groupId, $message);
+            Group::updateGroupWithMessage($groupId, $message);
         }
 
         SocketMessage::dispatch($message);
